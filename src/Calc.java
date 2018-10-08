@@ -108,11 +108,16 @@ public class Calc {
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         //dfs.setDecimalSeparator(',');
         System.out.println(dfs.getDecimalSeparator());
-        String str = "123 4,5 a 6";
-        boolean bbb = str.("[^1234567890/+/-/*//]");
+        String str = "123 a";
+        //boolean bbb = str.("[^1234567890/+/-/*//]");
+        //boolean bbb = str.matches("(\\d+| )?");
+        boolean bbb = str.matches("[\\d]+");
         Calc Calculator = new Calc();
         //Calculator.Solve_formula(str);
         //float a = Float.parseFloat(str);
+        String regex = "^[0-9]";
+        String data = "23343453a";
+        System.out.println(data.matches(regex));
         System.out.println(str);
         //System.out.println(a);
     }
