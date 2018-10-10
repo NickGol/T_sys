@@ -110,18 +110,31 @@ public class Calc {
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         //dfs.setDecimalSeparator(',');
         System.out.println(dfs.getDecimalSeparator());
-        String str = "abqq";
+        String str = "(156..+83)";
         //boolean bbb = str.("[^1234567890/+/-/*//]");
         //boolean bbb = str.matches("(\\d+| )?");
         //boolean bbb = str.matches("[\\d\\+\\-\\*\\/\\.\\(\\)]+");
         boolean bbb = str.matches("^([0-9//(])+");
         System.out.println(bbb);
-        String regex1 = "(^[0-9]+)([q]+)";
+
+        final String regex = "^[\\(\\-\\+]?([\\+\\-\\/\\*]?([\\d]+([\\.]?[\\d]+)?){1})+";
+        final String string = "(/1..1";
+
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(string);
+        System.out.println(matcher.matches() + "     12345");
+        while (matcher.find()) {
+            System.out.println("Full match: " + matcher.group(0));
+            for (int i = 1; i <= matcher.groupCount(); i++) {
+                System.out.println("Group " + i + ": " + matcher.group(i));
+            }
+        }
+        /*String regex1 = "(^[0-9\\(])([\\d\\(\\+\\-*\/).{1}]+)";
         Pattern pattern1 = Pattern.compile(regex1);
         Matcher matcher1 = pattern1.matcher(str);
-        System.out.println(matcher1.matches());
+        System.out.println(matcher1.matches());*/
 
-        final String regex = "^[^.\\n]+(?:\\.[^.\\n]+)+$";
+        /*final String regex = "^[^.\\n]+(?:\\.[^.\\n]+)+$";
         final String string = ".sss.\n"
                 + ".ssssss\n"
                 + "sssssss.\n"
@@ -136,7 +149,7 @@ public class Calc {
             for (int i = 1; i <= matcher.groupCount(); i++) {
                 System.out.println("Group " + i + ": " + matcher.group(i));
             }
-        }
+        }*/
 
 
 
