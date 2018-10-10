@@ -1,6 +1,8 @@
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Calc {
 
@@ -108,17 +110,44 @@ public class Calc {
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         //dfs.setDecimalSeparator(',');
         System.out.println(dfs.getDecimalSeparator());
-        String str = "123 a";
+        String str = "abqq";
         //boolean bbb = str.("[^1234567890/+/-/*//]");
         //boolean bbb = str.matches("(\\d+| )?");
-        boolean bbb = str.matches("[\\d]+");
-        Calc Calculator = new Calc();
+        //boolean bbb = str.matches("[\\d\\+\\-\\*\\/\\.\\(\\)]+");
+        boolean bbb = str.matches("^([0-9//(])+");
+        System.out.println(bbb);
+        String regex1 = "(^[0-9]+)([q]+)";
+        Pattern pattern1 = Pattern.compile(regex1);
+        Matcher matcher1 = pattern1.matcher(str);
+        System.out.println(matcher1.matches());
+
+        final String regex = "^[^.\\n]+(?:\\.[^.\\n]+)+$";
+        final String string = ".sss.\n"
+                + ".ssssss\n"
+                + "sssssss.\n"
+                + ".sssss.sss.\n"
+                + "ssss.ssss\n";
+
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(string);
+
+        while (matcher.find()) {
+            System.out.println("Full match: " + matcher.group(0));
+            for (int i = 1; i <= matcher.groupCount(); i++) {
+                System.out.println("Group " + i + ": " + matcher.group(i));
+            }
+        }
+
+
+
+
+        /*Calc Calculator = new Calc();
         //Calculator.Solve_formula(str);
         //float a = Float.parseFloat(str);
         String regex = "^[0-9]";
         String data = "23343453a";
         System.out.println(data.matches(regex));
-        System.out.println(str);
+        System.out.println(str);*/
         //System.out.println(a);
     }
 }
