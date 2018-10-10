@@ -119,7 +119,7 @@ public class Calc {
 
         final String regex = "^[\\(\\-\\+]?([\\+\\-\\/\\*]?([\\d]+([\\.]?[\\d]+)?){1})+";
         final String string = "(/1..1";
-
+//^[\(\-\+]?([\+\-\/\*]?([\d]+([\.]?[\d]+)?){1})+
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(string);
         System.out.println(matcher.matches() + "     12345");
