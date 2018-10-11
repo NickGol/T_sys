@@ -110,28 +110,16 @@ public class Calc {
 
     public static void main(String[] args)
     {
-        String[] aaa;
+        /*String[] aaa;
         aaa = "123.45:as75dfg555(+213".split("[^\\d.]+");
         float a = Float.parseFloat("123.45");
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         //dfs.setDecimalSeparator(',');
         System.out.println(dfs.getDecimalSeparator());
         String str = "(156..+83)+";
-
-        final String regex = "(([\\(]*[\\-]?)*([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}(?!$)|[\\)]*$)?)+";
-        final String string = "(-55.55+75.55)+(55+55.25)+5*5/73*)";
-
-        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        final Matcher matcher = pattern.matcher(string);
-        System.out.println(matcher.matches() + "     12345");
-        while (matcher.find()) {
-            System.out.println("Full match: " + matcher.group(0));
-            for (int i = 1; i <= matcher.groupCount(); i++) {
-                System.out.println("Group " + i + ": " + matcher.group(i));
-            }
-        }
-
-
+*/
+        //final String regex = "(([\\(]*[\\-]?)*([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}(?!$)|[\\)]*$)?)+";
+        //final String string = "(-55.55+75.55)+(55+55.25)+5*5/73*)";
 
         //String str123 = "(-55.55+75.5/5)+((55+55.25)+5*5/73)";
         String str123 = "-(-(-55.55+75.5))+15*100+15";
