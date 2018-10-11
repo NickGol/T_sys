@@ -6,7 +6,8 @@ import java.util.regex.Pattern;
 
 public class Calc {
 
-  /*  String Delete_extra_spaces(String formula)
+    String [] Nums_arr;
+    String Delete_extra_spaces(String formula)
     {
         return formula = formula.replaceAll("\\s", "");
     }
@@ -25,19 +26,19 @@ public class Calc {
     boolean Check_if_operation (char c) {
         return c=='+' || c=='-' || c=='*' || c=='/';
     }
-    Integer Get_priority (char op) {
-        if (op < 0)
+    Integer Get_priority (int op) {
+        if ((short)op < 0)
             return 4;
         return
                 op == '+' || op == '-' ? 1 : op == '*' || op == '/' || op == '%' ? 2 : -1;
     }
 
     void Process_operator (LinkedList<Float> Nums, char op) {
-        if (op < 0) {
+        if ((short)op < 0) {
             Float l = Nums.pollLast();
-            switch (-op) {
+            switch (-(short)op) {
                 case '+':  Nums.add(l);  break;
-                case '-':  Nums.add(l);  break;
+                case '-':  Nums.add(-l);  break;
             }
         }
         else {
@@ -54,10 +55,16 @@ public class Calc {
     }
     Float Solve_formula(String formula)
     {
+        String [] Nums_arr = formula.split("[^\\d.]+");
+        Integer Num_cnt=0;
+        if(Nums_arr[0].isEmpty()) Num_cnt = 1;
+
         if( !this.Check_if_parenthesis_err(formula) )
         {
             formula = this.Delete_extra_spaces(formula);
             formula = this.Change_commas_to_dots(formula);
+            boolean check = formula.matches("(([\\(]*[\\-]?)*([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}(?!$)|[\\)]*$)?)+");
+            System.out.println(check + "     67890");
         }
         boolean may_unary = true;
         LinkedList<Float> st = new LinkedList<>();
@@ -70,28 +77,24 @@ public class Calc {
                 else if (formula.charAt(i) == ')') {
                     while (op.getLast() != '(')
                         Process_operator(st, op.pollLast());
+                    op.pollLast();
                     may_unary = false;
                 }
                 else if ( Check_if_operation (formula.charAt(i)) ) {
-                    char curop = formula.charAt(i);
-                    if (may_unary && isunary (curop))  curop = -curop;
+                    int curop = formula.charAt(i);
+                    if (may_unary /*&& isunary (curop)*/) curop = -curop;
                     while (!op.isEmpty() && (
-                            curop >= 0 && Get_priority(op.peekLast()) >= Get_priority(curop)
-                                    || curop < 0 && Get_priority(op.peekLast()) >Get_priority(curop))
-                            )
+                        curop >= 0 && Get_priority(op.peekLast()) >= Get_priority(curop)
+                        || curop < 0 && Get_priority(op.peekLast())>Get_priority(curop))
+                        )
                         Process_operator(st, op.pollLast());
-                    op.add(curop);
-                    may_unary = true;
+                    op.add((char)curop);
+                    //may_unary = true;
                 }
                 else {
-                    Character operand;
-                    while (i < formula.length() && isalnum (s[i])))
-                    operand += s[i++];
-                    --i;
-                    if (isdigit (operand[0]))
-                        st.push_back (atoi (operand.c_str()));
-                    else
-                        st.push_back (get_variable_val (operand));
+                    st.add( Float.parseFloat(Nums_arr[Num_cnt]) );
+                    i+=Nums_arr[Num_cnt].length()-1;
+                    Num_cnt++;
                     may_unary = false;
                 }
         while (!op.isEmpty())
@@ -101,31 +104,23 @@ public class Calc {
 
 
     }
-*/
+
 
 
 
     public static void main(String[] args)
     {
+        String[] aaa;
+        aaa = "123.45:as75dfg555(+213".split("[^\\d.]+");
+        float a = Float.parseFloat("123.45");
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         //dfs.setDecimalSeparator(',');
         System.out.println(dfs.getDecimalSeparator());
         String str = "(156..+83)+";
-        //boolean bbb = str.("[^1234567890/+/-/*//]");
-        //boolean bbb = str.matches("(\\d+| )?");
-        //boolean bbb = str.matches("[\\d\\+\\-\\*\\/\\.\\(\\)]+");
-        boolean bbb = str.matches("^([0-9//(])+");
-        System.out.println(bbb);
 
-        //final String regex =  "([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}[[:graph:]]|[\\+\\-\\*\\/]{1}[[:graph:]]|([\\)][$])|[$]))+";//"([\\)]*[\\+\\-\\*\\/]{1}[[:graph:]]|[\\+\\-\\*\\/]{1}[[:graph:]]|[)]+$|$)";//"([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1})+";//"([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}|[\\+\\-\\*\\/]{1}|$))+"; //"([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1})+";//"^[\\(\\-\\+]?([\\+\\-\\/\\*]?([\\d]+([\\.]?[\\d]+)?){1})+";
-        //final String string = "55+56";
-        final String regex = "([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}(?!$)|[\\)]*$)?)+";
-        final String string = "(-55.55+75.55)+(55+55.25)+5*5/73*)5";
-//^[\(\-\+]?([\+\-\/\*]?([\d]+([\.]?[\d]+)?){1})+
+        final String regex = "(([\\(]*[\\-]?)*([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}(?!$)|[\\)]*$)?)+";
+        final String string = "(-55.55+75.55)+(55+55.25)+5*5/73*)";
 
-        //([\(]*[\-]?([\d]+([\.]?[\d]+)?){1}([\)]*[\+\-\*\/]{1}|[\+\-\*\/]{1}|([\)][\$])|[$]))+
-
-        //([\)]*[\+\-\*\/]{1}[!-~]|[\+\-\*\/]{1}[!-~]|([\)][$])|[$]))+
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(string);
         System.out.println(matcher.matches() + "     12345");
@@ -135,40 +130,19 @@ public class Calc {
                 System.out.println("Group " + i + ": " + matcher.group(i));
             }
         }
-        /*String regex1 = "(^[0-9\\(])([\\d\\(\\+\\-*\/).{1}]+)";
-        Pattern pattern1 = Pattern.compile(regex1);
-        Matcher matcher1 = pattern1.matcher(str);
-        System.out.println(matcher1.matches());*/
-
-        /*final String regex = "^[^.\\n]+(?:\\.[^.\\n]+)+$";
-        final String string = ".sss.\n"
-                + ".ssssss\n"
-                + "sssssss.\n"
-                + ".sssss.sss.\n"
-                + "ssss.ssss\n";
-
-        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        final Matcher matcher = pattern.matcher(string);
-
-        while (matcher.find()) {
-            System.out.println("Full match: " + matcher.group(0));
-            for (int i = 1; i <= matcher.groupCount(); i++) {
-                System.out.println("Group " + i + ": " + matcher.group(i));
-            }
-        }*/
 
 
 
-
-        /*Calc Calculator = new Calc();
-        //Calculator.Solve_formula(str);
+        //String str123 = "(-55.55+75.5/5)+((55+55.25)+5*5/73)";
+        String str123 = "-(-(-55.55+75.5))+15*100+15";
+        Calc Calculator = new Calc();
+        System.out.println("Result");
+        System.out.println(Calculator.Solve_formula(str123));
         //float a = Float.parseFloat(str);
-        String regex = "^[0-9]";
-        String data = "23343453a";
-        System.out.println(data.matches(regex));
-        System.out.println(str);*/
-        //System.out.println(a);
+
     }
 }
 
 // https://bitbucket.org/tschool/javaschoolexam
+
+//(([\(]*[\-]?)*([\d]+([\.]?[\d]+)?){1}([\)]*[\+\-\*\/]{1}(?!$)|[\)]*$)?)+
