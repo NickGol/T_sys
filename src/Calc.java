@@ -110,16 +110,20 @@ public class Calc {
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         //dfs.setDecimalSeparator(',');
         System.out.println(dfs.getDecimalSeparator());
-        String str = "(156..+83)";
+        String str = "(156..+83)+";
         //boolean bbb = str.("[^1234567890/+/-/*//]");
         //boolean bbb = str.matches("(\\d+| )?");
         //boolean bbb = str.matches("[\\d\\+\\-\\*\\/\\.\\(\\)]+");
         boolean bbb = str.matches("^([0-9//(])+");
         System.out.println(bbb);
 
-        final String regex = "^[\\(\\-\\+]?([\\+\\-\\/\\*]?([\\d]+([\\.]?[\\d]+)?){1})+";
-        final String string = "(/1..1";
+        final String regex =  "([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}[[:graph:]]|[\\+\\-\\*\\/]{1}[[:graph:]]|([\\)][$])|[$]))+";//"([\\)]*[\\+\\-\\*\\/]{1}[[:graph:]]|[\\+\\-\\*\\/]{1}[[:graph:]]|[)]+$|$)";//"([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1})+";//"([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}|[\\+\\-\\*\\/]{1}|$))+"; //"([\\(]*[\\-]?([\\d]+([\\.]?[\\d]+)?){1})+";//"^[\\(\\-\\+]?([\\+\\-\\/\\*]?([\\d]+([\\.]?[\\d]+)?){1})+";
+        final String string = "55+56";
 //^[\(\-\+]?([\+\-\/\*]?([\d]+([\.]?[\d]+)?){1})+
+
+        //([\(]*[\-]?([\d]+([\.]?[\d]+)?){1}([\)]*[\+\-\*\/]{1}|[\+\-\*\/]{1}|([\)][\$])|[$]))+
+
+        //([\)]*[\+\-\*\/]{1}[!-~]|[\+\-\*\/]{1}[!-~]|([\)][$])|[$]))+
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(string);
         System.out.println(matcher.matches() + "     12345");
