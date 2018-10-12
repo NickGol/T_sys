@@ -64,8 +64,10 @@ public class Calc {
             formula = this.Delete_extra_spaces(formula);
             formula = this.Change_commas_to_dots(formula);
             boolean check = formula.matches("(([\\(]*[\\-]?)*([\\d]+([\\.]?[\\d]+)?){1}([\\)]*[\\+\\-\\*\\/]{1}(?!$)|[\\)]*$)?)+");
+            if(!check) {System.out.println("Ошибка в выражении"); return Float.parseFloat("-1");}
             System.out.println(check + "     67890");
         }
+        else {System.out.println("Ошибка со скобками"); return Float.parseFloat("-1");}
         boolean may_unary = true;
         LinkedList<Float> st = new LinkedList<>();
         LinkedList<Character> op = new LinkedList<>();;
@@ -122,7 +124,8 @@ public class Calc {
         //final String string = "(-55.55+75.55)+(55+55.25)+5*5/73*)";
 
         //String str123 = "(-55.55+75.5/5)+((55+55.25)+5*5/73)";
-        String str123 = "-(-(-55.55+75.5))+15*100+15";
+        //String str123 = "-(-(-55.55+75.5))+15*100+15";
+        String str123 = "-12)1//(";
         Calc Calculator = new Calc();
         System.out.println("Result");
         System.out.println(Calculator.Solve_formula(str123));
@@ -134,3 +137,5 @@ public class Calc {
 // https://bitbucket.org/tschool/javaschoolexam
 
 //(([\(]*[\-]?)*([\d]+([\.]?[\d]+)?){1}([\)]*[\+\-\*\/]{1}(?!$)|[\)]*$)?)+
+
+//http://e-maxx.ru/algo/expressions_parsing
