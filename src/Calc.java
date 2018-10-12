@@ -124,8 +124,8 @@ public class Calc {
         //final String string = "(-55.55+75.55)+(55+55.25)+5*5/73*)";
 
         //String str123 = "(-55.55+75.5/5)+((55+55.25)+5*5/73)";
-        //String str123 = "-(-(-55.55+75.5))+15*100+15";
-        String str123 = "-12)1//(";
+        String str123 = "-(-(-55.55+75.5))+15*100+15";
+        //String str123 = "-12)1//(";
         Calc Calculator = new Calc();
         System.out.println("Result");
         System.out.println(Calculator.Solve_formula(str123));
