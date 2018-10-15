@@ -18,7 +18,7 @@ public class Pyramid {
         if(Math.round(cnt) == cnt.longValue())
             return new Integer[5][5];
         List_in.sort((a,b)->a.compareTo(b));
-        return new Integer[5][5];
+        return new Integer[5][55];
 
     }
 
